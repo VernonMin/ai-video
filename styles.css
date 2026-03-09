@@ -84,6 +84,69 @@ h1 {
   backdrop-filter: blur(6px);
 }
 
+.auth {
+  margin-bottom: 20px;
+  padding: 18px 22px;
+}
+
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.auth-header p {
+  margin: 4px 0 0;
+  color: #b7c4ea;
+}
+
+.auth-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.oauth-btn {
+  min-width: 160px;
+}
+
+.oauth-btn.google {
+  background: linear-gradient(135deg, #f7f8ff, #dce6ff);
+  color: #162448;
+}
+
+.oauth-btn.x {
+  background: linear-gradient(135deg, #161d30, #0a0f1c);
+  color: #f0f5ff;
+  border: 1px solid rgba(207, 220, 255, 0.2);
+}
+
+.auth-config {
+  margin-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 12px;
+}
+
+.auth-config summary {
+  cursor: pointer;
+  color: #d7e3ff;
+}
+
+.config-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.auth-status {
+  margin: 12px 0 0;
+  color: #cbd7fb;
+  min-height: 1.4em;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(280px, 1fr) minmax(380px, 1.3fr);
@@ -232,7 +295,8 @@ video {
     padding-inline: 14px;
   }
 
-  .workspace {
+  .workspace,
+  .auth {
     padding: 14px;
     gap: 14px;
   }

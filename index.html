@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vision Movie · 文字生成小电影</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
     <div class="bg-orb orb-1"></div>
@@ -16,6 +17,38 @@
         <h1>输入文字，一键生成<br />你的专属小电影</h1>
         <p class="subtitle">受现代 AI 创意平台视觉启发的界面设计：更高级的层次、更清晰的流程、更沉浸的预览体验。</p>
       </header>
+
+      <section class="auth card">
+        <div class="auth-header">
+          <h2>账号登录</h2>
+          <p>支持 Google 快速登录，并提供 X（Twitter）OAuth 跳转入口。</p>
+        </div>
+
+        <div class="auth-actions">
+          <button id="googleLoginBtn" class="oauth-btn google" type="button">使用 Google 登录</button>
+          <button id="xLoginBtn" class="oauth-btn x" type="button">使用 X 登录</button>
+        </div>
+
+        <details class="auth-config">
+          <summary>登录配置（首次使用请填写）</summary>
+          <div class="config-grid">
+            <label>
+              Google Client ID
+              <input id="googleClientId" type="text" placeholder="xxx.apps.googleusercontent.com" />
+            </label>
+            <label>
+              X Client ID
+              <input id="xClientId" type="text" placeholder="X OAuth 2.0 Client ID" />
+            </label>
+            <label>
+              X Redirect URI
+              <input id="xRedirectUri" type="url" placeholder="http://localhost:4173" />
+            </label>
+          </div>
+        </details>
+
+        <p id="authStatus" class="auth-status" aria-live="polite">未登录</p>
+      </section>
 
       <section class="workspace card">
         <div class="editor">

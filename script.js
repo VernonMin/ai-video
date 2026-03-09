@@ -6,7 +6,132 @@ const canvas = document.getElementById("movieCanvas");
 const previewVideo = document.getElementById("moviePreview");
 const downloadLink = document.getElementById("downloadLink");
 
+const googleLoginBtn = document.getElementById("googleLoginBtn");
+const xLoginBtn = document.getElementById("xLoginBtn");
+const googleClientIdInput = document.getElementById("googleClientId");
+const xClientIdInput = document.getElementById("xClientId");
+const xRedirectUriInput = document.getElementById("xRedirectUri");
+const authStatus = document.getElementById("authStatus");
+
 const ctx = canvas.getContext("2d");
+const STORAGE_KEY = "vision-movie-auth-config";
+
+let googleInitialized = false;
+
+function loadAuthConfig() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) {
+    xRedirectUriInput.value = window.location.origin;
+    return;
+  }
+
+  try {
+    const config = JSON.parse(saved);
+    googleClientIdInput.value = config.googleClientId || "";
+    xClientIdInput.value = config.xClientId || "";
+    xRedirectUriInput.value = config.xRedirectUri || window.location.origin;
+  } catch {
+    xRedirectUriInput.value = window.location.origin;
+  }
+}
+
+function saveAuthConfig() {
+  const config = {
+    googleClientId: googleClientIdInput.value.trim(),
+    xClientId: xClientIdInput.value.trim(),
+    xRedirectUri: xRedirectUriInput.value.trim() || window.location.origin,
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+  return config;
+}
+
+function decodeJwtPayload(token) {
+  const payload = token.split(".")[1];
+  const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+  return JSON.parse(atob(normalized));
+}
+
+function setAuthMessage(message) {
+  authStatus.textContent = message;
+}
+
+function initGoogleLogin() {
+  const { googleClientId } = saveAuthConfig();
+  if (!googleClientId) {
+    setAuthMessage("请先填写 Google Client ID。");
+    return;
+  }
+
+  if (!window.google?.accounts?.id) {
+    setAuthMessage("Google SDK 加载失败，请检查网络后重试。");
+    return;
+  }
+
+  if (!googleInitialized) {
+    window.google.accounts.id.initialize({
+      client_id: googleClientId,
+      callback: (response) => {
+        try {
+          const profile = decodeJwtPayload(response.credential);
+          const name = profile.name || profile.email || "Google 用户";
+          setAuthMessage(`已使用 Google 登录：${name}`);
+        } catch {
+          setAuthMessage("Google 登录成功，但解析用户信息失败。");
+        }
+      },
+      ux_mode: "popup",
+    });
+    googleInitialized = true;
+  }
+
+  window.google.accounts.id.prompt();
+  setAuthMessage("正在打开 Google 登录窗口...");
+}
+
+function startXLogin() {
+  const { xClientId, xRedirectUri } = saveAuthConfig();
+  if (!xClientId) {
+    setAuthMessage("请先填写 X Client ID。");
+    return;
+  }
+
+  const state = crypto.randomUUID();
+  localStorage.setItem("x_oauth_state", state);
+
+  const params = new URLSearchParams({
+    response_type: "code",
+    client_id: xClientId,
+    redirect_uri: xRedirectUri,
+    scope: "tweet.read users.read offline.access",
+    state,
+    code_challenge: "challenge",
+    code_challenge_method: "plain",
+  });
+
+  window.location.href = `https://twitter.com/i/oauth2/authorize?${params.toString()}`;
+}
+
+function handleXCallback() {
+  const url = new URL(window.location.href);
+  const code = url.searchParams.get("code");
+  const state = url.searchParams.get("state");
+  if (!code) {
+    return;
+  }
+
+  const savedState = localStorage.getItem("x_oauth_state");
+  if (state !== savedState) {
+    setAuthMessage("X 登录校验失败：state 不匹配。");
+    return;
+  }
+
+  setAuthMessage("已获取 X 授权码。请在后端完成 access token 交换。授权码已保存到控制台。");
+  console.info("X OAuth code:", code);
+
+  url.searchParams.delete("code");
+  url.searchParams.delete("state");
+  window.history.replaceState({}, "", url.toString());
+}
 
 function splitScenes(text) {
   return text
@@ -168,4 +293,12 @@ async function generateMovie() {
   generateBtn.disabled = false;
 }
 
+loadAuthConfig();
+handleXCallback();
+
+googleLoginBtn.addEventListener("click", initGoogleLogin);
+xLoginBtn.addEventListener("click", startXLogin);
+googleClientIdInput.addEventListener("change", saveAuthConfig);
+xClientIdInput.addEventListener("change", saveAuthConfig);
+xRedirectUriInput.addEventListener("change", saveAuthConfig);
 generateBtn.addEventListener("click", generateMovie);
