@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vision Movie · 文字生成小电影</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <main class="app">
+      <header class="hero">
+        <p class="badge">AI Video Studio</p>
+        <h1>输入文字，一键生成<br />你的专属小电影</h1>
+        <p class="subtitle">受现代 AI 创意平台视觉启发的界面设计：更高级的层次、更清晰的流程、更沉浸的预览体验。</p>
+      </header>
+
+      <section class="workspace card">
+        <div class="editor">
+          <h2>创作描述</h2>
+          <label for="prompt">电影 Prompt</label>
+          <textarea id="prompt" rows="7" placeholder="例：在雨夜里，一只小猫独自穿过霓虹街道。它遇见一位拉小提琴的机器人。最终它们一起在天台看见日出。"></textarea>
+
+          <div class="controls">
+            <label>
+              场景时长（秒）
+              <input id="secondsPerScene" type="number" min="1" max="8" value="2" />
+            </label>
+            <button id="generateBtn">✨ 生成小电影</button>
+          </div>
+
+          <p id="status" aria-live="polite"></p>
+
+          <div class="tips">
+            <span>建议 2-6 句话</span>
+            <span>自动拆分场景</span>
+            <span>支持下载 WebM</span>
+          </div>
+        </div>
+
+        <div class="preview">
+          <h2>实时预览</h2>
+          <canvas id="movieCanvas" width="720" height="405"></canvas>
+          <video id="moviePreview" controls></video>
+          <a id="downloadLink" download="mini-movie.webm">下载小电影</a>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

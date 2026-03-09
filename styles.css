@@ -1,0 +1,253 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #ecf0ff;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(93, 140, 255, 0.32), transparent 38%),
+    radial-gradient(circle at 86% 12%, rgba(166, 93, 255, 0.28), transparent 33%),
+    linear-gradient(135deg, #070a14 0%, #0b1020 45%, #070910 100%);
+  overflow-x: hidden;
+}
+
+.bg-orb {
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.orb-1 {
+  background: #5f82ff;
+  top: -120px;
+  left: -120px;
+}
+
+.orb-2 {
+  background: #b970ff;
+  bottom: -150px;
+  right: -100px;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px 20px 56px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero {
+  margin-bottom: 20px;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(113, 148, 255, 0.18);
+  border: 1px solid rgba(164, 186, 255, 0.34);
+  color: #cddaff;
+  font-size: 0.82rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4.2vw, 3.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 14px 0 0;
+  max-width: 760px;
+  color: #b8c2e6;
+}
+
+.card {
+  background: linear-gradient(140deg, rgba(18, 25, 49, 0.82), rgba(13, 19, 38, 0.84));
+  border: 1px solid rgba(167, 189, 255, 0.18);
+  border-radius: 22px;
+  box-shadow: 0 26px 70px rgba(2, 4, 10, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(380px, 1.3fr);
+  gap: 22px;
+  padding: 22px;
+}
+
+.editor,
+.preview {
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  color: #d8e2ff;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.93rem;
+  color: #b7c4ea;
+}
+
+textarea,
+input {
+  width: 100%;
+  border: 1px solid rgba(187, 207, 255, 0.2);
+  background: rgba(8, 12, 24, 0.8);
+  color: #eff3ff;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 160px;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+  border-color: rgba(132, 171, 255, 0.78);
+  box-shadow: 0 0 0 3px rgba(106, 151, 255, 0.18);
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  align-items: end;
+}
+
+.controls label {
+  flex: 0 0 170px;
+  margin: 0;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #72a0ff, #ac7cff 52%, #83b7ff);
+  color: #0b1020;
+  padding: 12px 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(112, 136, 255, 0.35);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+#status {
+  min-height: 1.4em;
+  margin: 12px 0 0;
+  color: #cad6fb;
+  font-size: 0.95rem;
+}
+
+.tips {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tips span {
+  border: 1px solid rgba(185, 204, 255, 0.22);
+  background: rgba(129, 159, 255, 0.1);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  color: #d9e3ff;
+}
+
+.preview {
+  display: grid;
+  gap: 10px;
+}
+
+canvas,
+video {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(176, 198, 255, 0.2);
+  background: #04070d;
+}
+
+#downloadLink {
+  width: fit-content;
+  margin-top: 4px;
+  text-decoration: none;
+  color: #dbe6ff;
+  border-bottom: 1px dashed rgba(219, 230, 255, 0.9);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#downloadLink.ready {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 930px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding-inline: 14px;
+  }
+
+  .workspace {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .editor,
+  .preview {
+    padding: 12px;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls label {
+    flex: 1;
+  }
+}
