@@ -1,0 +1,129 @@
+:root {
+  color-scheme: dark;
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, #1f2a44 0%, #0d1117 60%);
+  color: #f2f5ff;
+}
+
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.subtitle {
+  opacity: 0.85;
+}
+
+.panel {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(2px);
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+textarea,
+input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.28);
+  color: #f2f5ff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  align-items: end;
+}
+
+.controls label {
+  margin: 0;
+  flex: 0 0 190px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #88b0ff, #9a79ff);
+  color: #111;
+  padding: 11px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+#status {
+  min-height: 1.4em;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+.preview {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+canvas,
+video {
+  width: min(100%, 900px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #04070d;
+}
+
+#downloadLink {
+  width: fit-content;
+  color: #d2dfff;
+  text-decoration: none;
+  border-bottom: 1px dashed #d2dfff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#downloadLink.ready {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 640px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls label {
+    flex: 1;
+  }
+}

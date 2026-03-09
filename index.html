@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文字生成小电影</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>🎬 文字生成小电影</h1>
+      <p class="subtitle">输入一句话或一段故事，自动生成一段带动画和字幕的小电影（WebM）。</p>
+
+      <section class="panel">
+        <label for="prompt">电影描述</label>
+        <textarea id="prompt" rows="6" placeholder="例：在雨夜里，一只小猫独自穿过霓虹街道，最终在天台看见日出。"></textarea>
+
+        <div class="controls">
+          <label>
+            每个场景秒数
+            <input id="secondsPerScene" type="number" min="1" max="8" value="2" />
+          </label>
+          <button id="generateBtn">生成小电影</button>
+        </div>
+
+        <p id="status" aria-live="polite"></p>
+      </section>
+
+      <section class="preview">
+        <canvas id="movieCanvas" width="720" height="405"></canvas>
+        <video id="moviePreview" controls></video>
+        <a id="downloadLink" download="mini-movie.webm">下载小电影</a>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
